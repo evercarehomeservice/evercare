@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EverCare — Cleaning Service Request</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --b1:#2a5f8f; --b2:#4487bf; --b3:#56c2c1; --b4:#a8d8ea;
+      --g1:#1e5c38; --g2:#2f7a57; --g3:#52b788; --g4:#a8d8bc;
+      --navy:#0d1e2e; --navy2:#1c3350;
+      --white:#ffffff; --cream:#f4f8fc;
+      --text:#1a2e3d; --muted:#4a6070;
+      --serif:'Playfair Display',Georgia,serif;
+      --sans:'Inter',system-ui,sans-serif;
+      --sh:0 4px 24px rgba(68,135,191,.1);
+      --sh2:0 16px 48px rgba(68,135,191,.16);
+      --grad:linear-gradient(135deg,var(--b2),var(--g3));
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--sans);color:var(--text);background:var(--cream);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    h1,h2,h3,h4{font-family:var(--serif);line-height:1.2;letter-spacing:-.01em}
+
+    /* ── HEADER ── */
+    .intake-header{background:var(--navy);position:relative;overflow:hidden}
+    .intake-header::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.055) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+    .intake-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(68,135,191,.5),rgba(86,194,193,.5),transparent)}
+
+    .header-wrap{max-width:720px;margin:0 auto;padding:0 32px;position:relative;z-index:1}
+    .header-top{display:flex;align-items:center;justify-content:space-between;padding:22px 0 0}    .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .brand-logo{width:42px;height:42px;flex-shrink:0}
+    .brand-name{font-family:var(--serif);font-size:1.25rem;font-weight:800;color:#fff;letter-spacing:-.01em}
+    .brand-tagline{font-size:.68rem;color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase;margin-top:1px}
+    .header-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:6px 14px;color:rgba(255,255,255,.5);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+    .header-badge i{color:var(--b3);font-size:.65rem}
+
+    .header-inner{padding:40px 0 50px}
+    .header-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--b3);margin-bottom:16px}
+    .header-eyebrow::before,.header-eyebrow::after{content:'';height:2px;width:20px;border-radius:2px;background:var(--b2)}
+
+    .header-greeting{font-size:1rem;color:rgba(255,255,255,.75);font-weight:400;margin-bottom:10px;min-height:1.4em}
+    .header-greeting strong{color:#fff;font-weight:700}
+
+    .header-h1{font-size:clamp(2.6rem,5vw,3.6rem);color:#fff;font-weight:800;line-height:1.06;margin-bottom:18px}
+    .header-h1 em{font-style:italic;background:linear-gradient(135deg,var(--b4),var(--g4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+    .header-sub{color:rgba(255,255,255,.52);font-size:.92rem;line-height:1.78;font-weight:300;max-width:520px;margin-bottom:28px}
+
+    .header-trust{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:10px 20px;width:fit-content}
+    .ht-item{display:flex;align-items:center;gap:7px;color:rgba(255,255,255,.55);font-size:.74rem;font-weight:500;white-space:nowrap}
+    .ht-item i{color:var(--b3);font-size:.68rem}
+    .ht-div{width:1px;height:13px;background:rgba(255,255,255,.12)}
+
+    /* ── PROGRESS ── */
+    .progress-wrap{background:var(--navy2);padding:0 32px 24px;border-bottom:1px solid rgba(68,135,191,.08)}
+    .progress-steps{display:flex;max-width:720px;margin:0 auto;padding:0 32px}
+    .step-item{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+    .step-item:not(:last-child)::after{content:'';position:absolute;top:14px;left:50%;width:100%;height:2px;background:rgba(255,255,255,.08);z-index:0;transition:background .4s}
+    .step-item.done:not(:last-child)::after{background:var(--b3)}
+    .step-dot{width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:rgba(255,255,255,.3);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;transition:all .3s}
+    .step-item.active .step-dot{background:var(--grad);border-color:transparent;color:#fff;box-shadow:0 0 0 5px rgba(68,135,191,.2)}
+    .step-item.done .step-dot{background:var(--b3);border-color:transparent;color:#fff}
+    .step-lbl{font-size:.62rem;letter-spacing:.04em;color:rgba(255,255,255,.28);margin-top:7px;text-align:center;transition:color .3s}
+    .step-item.active .step-lbl{color:var(--b4)}
+    .step-item.done .step-lbl{color:rgba(255,255,255,.5)}
+
+    /* ── MAIN ── */
+    main{max-width:680px;margin:0 auto;padding:40px 24px 80px}
+
+    /* ── SECTIONS ── */
+    .form-section{display:none;animation:fadeUp .3s ease}
+    .form-section.active{display:block}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+    .sec-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--b3);margin-bottom:10px}
+    .sec-eyebrow::before,.sec-eyebrow::after{content:'';height:2px;width:18px;border-radius:2px;background:var(--b2)}
+    .sec-heading{font-size:clamp(1.5rem,3vw,1.9rem);color:var(--navy);font-weight:800;margin-bottom:8px}
+    .sec-desc{color:var(--muted);font-size:.88rem;line-height:1.72;margin-bottom:28px}
+    .sec-line{width:42px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--b2),var(--b3));margin-bottom:32px}
+
+    /* ── CARD ── */
+    .card{background:var(--white);border-radius:18px;border:1.5px solid rgba(68,135,191,.08);padding:26px;margin-bottom:18px;box-shadow:var(--sh)}
+    .card-title{font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--b1);margin-bottom:20px;padding-bottom:12px;border-bottom:1.5px solid rgba(68,135,191,.07);display:flex;align-items:center;gap:8px}
+    .card-title i{color:var(--b3)}
+
+    /* ── FIELDS ── */
+    .field{margin-bottom:18px}
+    .field:last-child{margin-bottom:0}
+    .field-row{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+    .field-row.three{grid-template-columns:1fr 1fr 1fr}
+    label{display:block;font-size:.79rem;font-weight:600;color:var(--navy);margin-bottom:6px}
+    label .req{color:var(--b2);margin-left:2px}
+    label .hint{font-weight:400;color:var(--muted);font-size:.73rem}
+
+    input[type="text"],input[type="email"],input[type="tel"],input[type="date"],input[type="number"],select,textarea{
+      width:100%;padding:11px 14px;border:1.5px solid rgba(68,135,191,.18);border-radius:10px;
+      font-family:var(--sans);font-size:.86rem;color:var(--text);background:var(--white);
+      outline:none;transition:border-color .2s,box-shadow .2s;appearance:none
+    }
+    input:focus,select:focus,textarea:focus{border-color:var(--b2);box-shadow:0 0 0 3px rgba(68,135,191,.1)}
+    input.err,select.err,textarea.err{border-color:#e05656;box-shadow:0 0 0 3px rgba(224,86,86,.08)}
+    textarea{resize:vertical;min-height:96px;line-height:1.65}
+    select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234a6070' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+    ::placeholder{color:rgba(74,96,112,.45)}
+
+    /* ── SERVICE CARDS ── */
+    .service-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+    .svc-card{border:1.5px solid rgba(68,135,191,.1);border-radius:14px;padding:16px;cursor:pointer;transition:all .22s;position:relative;user-select:none;background:var(--white)}
+    .svc-card:hover{border-color:var(--b2);box-shadow:var(--sh);transform:translateY(-2px)}
+    .svc-card.selected{border-color:var(--b2);background:linear-gradient(135deg,rgba(68,135,191,.05),rgba(82,183,136,.04));box-shadow:var(--sh)}
+    .svc-check{position:absolute;top:11px;right:11px;width:22px;height:22px;border-radius:50%;border:2px solid rgba(68,135,191,.35);background:rgba(68,135,191,.06);display:flex;align-items:center;justify-content:center;transition:all .2s}
+    .svc-card.selected .svc-check{background:var(--grad);border-color:transparent;box-shadow:0 2px 8px rgba(68,135,191,.4)}
+    .svc-check i{color:#fff;font-size:.58rem;opacity:0;transition:opacity .2s}
+    .svc-card.selected .svc-check i{opacity:1}
+    .svc-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,rgba(68,135,191,.09),rgba(82,183,136,.07));display:flex;align-items:center;justify-content:center;font-size:.95rem;margin-bottom:10px;color:var(--b2);transition:all .2s}
+    .svc-card.selected .svc-icon{background:linear-gradient(135deg,rgba(68,135,191,.16),rgba(82,183,136,.12))}
+    .svc-name{font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:3px}
+    .svc-desc{font-size:.71rem;color:var(--muted);line-height:1.45;padding-right:22px}
+    .svc-card.other-card .svc-icon{background:linear-gradient(135deg,rgba(74,96,112,.08),rgba(74,96,112,.05));color:var(--muted)}
+    .other-input-wrap{display:none;margin-top:12px;padding-top:12px;border-top:1px solid rgba(68,135,191,.08)}
+    .svc-card.other-card.selected .other-input-wrap{display:block}
+    .other-input-wrap input{font-size:.82rem;padding:9px 12px}
+
+    /* ── OPTION BUTTONS ── */
+    .opt-group{display:flex;flex-wrap:wrap;gap:7px}
+    .opt-btn{padding:8px 15px;border:1.5px solid rgba(68,135,191,.18);border-radius:100px;font-size:.79rem;font-weight:500;color:var(--muted);cursor:pointer;transition:all .18s;user-select:none;background:var(--white)}
+    .opt-btn:hover{border-color:var(--b2);color:var(--b1)}
+    .opt-btn.selected{background:var(--grad);border-color:transparent;color:#fff;font-weight:600}
+
+    /* ── ROOM GRID ── */
+    .room-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .room-item{border:1.5px solid rgba(68,135,191,.1);border-radius:12px;padding:13px;cursor:pointer;transition:all .2s;user-select:none;background:var(--white)}
+    .room-item:hover{border-color:var(--b2)}
+    .room-item.selected{border-color:var(--b2);background:linear-gradient(135deg,rgba(68,135,191,.05),rgba(82,183,136,.03))}
+    .room-top{display:flex;align-items:center;gap:8px}
+    .room-icon{font-size:1rem}
+    .room-name{font-size:.81rem;font-weight:600;color:var(--navy)}
+    .room-count{display:none;align-items:center;gap:8px;margin-top:9px;padding-top:9px;border-top:1px solid rgba(68,135,191,.07)}
+    .room-item.selected .room-count{display:flex}
+    .room-count label{font-size:.72rem;color:var(--muted);margin:0;white-space:nowrap;font-weight:400}
+    .room-count input{width:56px;padding:5px 8px;font-size:.8rem;text-align:center;border-radius:8px}
+
+    /* ── TAGS ── */
+    .tag-wrap{display:flex;flex-wrap:wrap;gap:7px}
+    .tag{padding:6px 13px;border:1.5px solid rgba(68,135,191,.13);border-radius:100px;font-size:.76rem;font-weight:500;color:var(--muted);cursor:pointer;transition:all .18s;user-select:none;background:var(--white)}
+    .tag:hover{border-color:var(--b2);color:var(--b1)}
+    .tag.selected{background:linear-gradient(135deg,rgba(68,135,191,.1),rgba(82,183,136,.08));border-color:var(--b2);color:var(--b1);font-weight:600}
+
+    /* ── TOGGLE ── */
+    .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:15px 0;border-bottom:1px solid rgba(68,135,191,.06)}
+    .toggle-row:last-child{border-bottom:none;padding-bottom:0}
+    .toggle-row:first-child{padding-top:0}
+    .toggle-info{flex:1}
+    .toggle-lbl{font-size:.84rem;font-weight:600;color:var(--navy)}
+    .toggle-sub{font-size:.74rem;color:var(--muted);margin-top:2px;line-height:1.5}
+    .toggle{position:relative;width:44px;height:24px;flex-shrink:0;margin-left:16px}
+    .toggle input{opacity:0;width:0;height:0}
+    .toggle-slider{position:absolute;inset:0;background:rgba(68,135,191,.1);border-radius:24px;cursor:pointer;transition:.25s;border:1.5px solid rgba(68,135,191,.18)}
+    .toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;top:2px;background:white;border-radius:50%;transition:.25s;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+    .toggle input:checked+.toggle-slider{background:var(--grad);border-color:transparent}
+    .toggle input:checked+.toggle-slider::before{transform:translateX(20px)}
+
+    /* ── CONDITIONAL ── */
+    .conditional{display:none;margin-top:12px;padding:14px;background:rgba(68,135,191,.03);border-radius:10px;border:1px solid rgba(68,135,191,.09)}
+    .conditional.show{display:block}
+    .conditional label{margin-bottom:6px}
+
+    /* ── NAV BUTTONS ── */
+    .nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:26px;gap:12px}
+    .btn-back{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border:1.5px solid rgba(68,135,191,.18);border-radius:100px;font-family:var(--sans);font-size:.83rem;font-weight:600;color:var(--muted);background:transparent;cursor:pointer;transition:all .2s}
+    .btn-back:hover{border-color:var(--b2);color:var(--b1)}
+    .btn-next{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 28px;background:var(--grad);border:none;border-radius:100px;font-family:var(--sans);font-size:.88rem;font-weight:700;color:#fff;cursor:pointer;transition:all .25s;box-shadow:0 6px 20px rgba(68,135,191,.35);flex:1;max-width:200px}
+    .btn-next:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(68,135,191,.48)}
+    .btn-submit{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 32px;background:var(--grad);border:none;border-radius:100px;font-family:var(--sans);font-size:.92rem;font-weight:700;color:#fff;cursor:pointer;transition:all .25s;box-shadow:0 8px 26px rgba(68,135,191,.42);flex:1;max-width:260px}
+    .btn-submit:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(68,135,191,.58)}
+    .btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    /* ── FIELD ERROR ── */
+    .ferr{font-size:.73rem;color:#e05656;margin-top:5px;display:none;align-items:center;gap:5px}
+    .ferr.show{display:flex}
+
+    /* ── REVIEW ── */
+    .review-block{background:var(--white);border:1.5px solid rgba(68,135,191,.08);border-radius:16px;padding:20px 22px;margin-bottom:14px;box-shadow:var(--sh)}
+    .rb-title{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--b2);margin-bottom:13px;display:flex;align-items:center;gap:7px}
+    .rb-title i{color:var(--b3)}
+    .rrow{display:flex;font-size:.82rem;padding:6px 0;border-bottom:1px solid rgba(68,135,191,.06);gap:12px}
+    .rrow:last-child{border-bottom:none}
+    .rkey{color:var(--muted);min-width:148px;flex-shrink:0;font-size:.78rem}
+    .rval{color:var(--navy);font-weight:600;word-break:break-word}
+
+    /* ── SUCCESS ── */
+    .success-wrap{text-align:center;padding:64px 24px}
+    .success-icon{width:78px;height:78px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:1.7rem;color:#fff;box-shadow:0 10px 32px rgba(68,135,191,.42)}
+    .success-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--b3);display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px}
+    .success-eyebrow::before,.success-eyebrow::after{content:'';height:2px;width:18px;border-radius:2px;background:var(--b2)}
+    .success-h2{font-family:var(--serif);font-size:clamp(1.7rem,4vw,2.2rem);color:var(--navy);font-weight:800;margin-bottom:10px}
+    .success-h2 em{font-style:italic;background:linear-gradient(135deg,var(--b2),var(--b3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .success-line{width:42px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--b2),var(--b3));margin:18px auto 22px}
+    .success-desc{color:var(--muted);font-size:.9rem;line-height:1.8;max-width:420px;margin:0 auto 28px}
+    .success-steps{display:flex;justify-content:center;gap:0;max-width:480px;margin:0 auto 32px}
+    .ss-item{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;padding:0 8px}
+    .ss-item:not(:last-child)::after{content:'';position:absolute;top:16px;left:calc(50% + 16px);width:calc(100% - 32px);height:2px;background:rgba(68,135,191,.15)}
+    .ss-num{width:32px;height:32px;border-radius:50%;background:var(--grad);color:#fff;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;box-shadow:0 4px 12px rgba(68,135,191,.25)}
+    .ss-lbl{font-size:.73rem;color:var(--muted);text-align:center;line-height:1.4}
+    .success-email{font-size:.78rem;color:var(--muted);margin-top:8px}
+    .success-email strong{color:var(--navy)}
+    .btn-back-site{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border:1.5px solid rgba(68,135,191,.2);border-radius:100px;font-family:var(--sans);font-size:.83rem;font-weight:600;color:var(--b1);text-decoration:none;transition:all .2s;background:var(--white)}
+    .btn-back-site:hover{border-color:var(--b2);box-shadow:var(--sh)}
+
+    /* ── FOOTER ── */
+    footer{background:var(--navy2);text-align:center;padding:22px 24px}
+    footer p{font-size:.73rem;color:rgba(255,255,255,.28)}
+    footer a{color:rgba(255,255,255,.28);text-decoration:none}
+    footer .fl{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.28);font-size:.7rem;margin-top:6px}
+    footer .fl i{color:var(--b3);font-size:.65rem}
+
+    /* ── HONEYPOT ── */
+    .hp-field{position:absolute;left:-9999px;opacity:0;pointer-events:none;tab-index:-1}
+
+    @media(max-width:600px){
+      .field-row,.field-row.three{grid-template-columns:1fr}
+      .service-grid,.room-grid{grid-template-columns:1fr}
+      .card{padding:18px 14px}
+      .header-wrap{padding:0 18px}
+      .header-trust{border-radius:14px;gap:6px 12px}
+      .ht-div{display:none}
+      main{padding:28px 14px 64px}
+      .progress-wrap{padding:0 18px 20px}
+      .progress-steps{padding:0 0}
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="intake-header">
+  <div class="header-wrap">
+  <div class="header-top">
+    <a href="https://evercarehomeservice.com" class="brand" target="_blank">
+      <svg class="brand-logo" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+          <linearGradient id="lg1" x1="408.01" y1="439.56" x2="551.42" y2="439.56" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#56c2c1"/><stop offset="1" stop-color="#4487bf"/></linearGradient>
+          <linearGradient id="lg2" x1="426.71" y1="650.86" x2="610.69" y2="466.88" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#56c2c1"/><stop offset="1" stop-color="#4487bf"/></linearGradient>
+          <linearGradient id="lg3" x1="267.55" y1="541.5" x2="514.29" y2="294.76" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#56c2c1"/><stop offset="1" stop-color="#4487bf"/></linearGradient>
+          <linearGradient id="lg4" x1="732.88" y1="368.88" x2="618.17" y2="455.11" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#c6d75d"/><stop offset="1" stop-color="#89bc4c"/></linearGradient>
+          <linearGradient id="lg5" x1="554.83" y1="738.97" x2="777.22" y2="516.57" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#56c2c1"/><stop offset="1" stop-color="#4487bf"/></linearGradient>
+          <linearGradient id="lg6" x1="453.74" y1="583.85" x2="318.2" y2="685.73" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#c6d75d"/><stop offset="1" stop-color="#89bc4c"/></linearGradient>
+        </defs>
+        <path fill="url(#lg1)" d="M479.95,532.8v31.2h30.83v-31.2h-30.83ZM550.98,532.8l-30.5.22v30.8s30.92.17,30.92.17l-.42-31.19ZM510.59,573.39h-30.54s0,30.29,0,30.29l31.2-.3-.67-29.99ZM520.4,603.63l30.91.11.11-30.4-30.91-.11-.11,30.4ZM429.56,452.15c0-12.24-9.52-22.22-21.55-23.03,12.03-.8,21.55-10.79,21.55-23.03,0,12.24,9.52,22.22,21.55,23.03-12.03.8-21.55,10.79-21.55,23.03ZM495.36,410.32c-7.65.51-13.69,6.86-13.69,14.63,0-7.77-6.05-14.12-13.69-14.63,7.65-.51,13.69-6.86,13.69-14.63,0,7.77,6.05,14.12,13.69,14.63M493.1,335.37c0-15.94-12.4-28.95-28.08-30,15.68-1.04,28.08-14.05,28.08-29.99,0,15.94,12.4,28.95,28.08,29.99-15.67,1.04-28.08,14.06-28.08,30Z"/>
+        <path fill="url(#lg2)" d="M618.95,640.28l-1.49-100.15-101.82-67.69-103.69,68.12-.06,77.56c-7.29.42-13.03-.53-19.98-2.35-3.35-2.63-7.19-6.87-7.21-11.44l-.2-53.68c-14.72-.27-26.83.47-42.62-1.14,13.15-10.49,25.55-17.5,38.71-26.25l74.23-49.35,59.09-39.88,60.08,40.13,1.26-17.28,25.24-.2.27,35.45,45.03,30.22c13.29,8.92,25.94,16.05,38.92,27.31l-39.04,1.06-1.5,60.18c-.31,12.61-13.26,22.66-25.23,29.39Z"/>
+        <path fill="url(#lg3)" d="M520.65,385.5c-39.61-54.94-107.54-79.36-168.08-61.52-57.75,17.03-100.08,69.53-104.88,126.4-4.49,53.13,25.32,92.43,34.18,103.76,27.28,34.88,61.57,48.97,76.48,54.11-58.38-58.89-76.47-136.25-47.79-189.47,19.89-36.9,56.32-51.16,61.52-53.11,47.63-17.88,104.63-3.34,146.57,37.65,7.58-7.12,14.55-11.12,19.5-13.45,7.04-3.31,10.67-3.57,16.81-8.07,2.63-1.93,7.62-5.67,11.43-12.44,4.01-7.14,4.66-13.99,4.71-17.82-6.14,1.43-14.07,3.98-22.52,8.74-14.34,8.08-23.18,18.57-27.9,25.21Z"/>
+        <path fill="url(#lg4)" d="M515.27,318.22c7.67,1.16,19.74,2.57,34.54,2.41,20.37-.23,40.32-5.47,60.68-5.66,19.59-.18,39.02,4.55,56.96,12.26,38.17,16.39,72.43,44.13,92.88,80.64,21.44,38.28,22.66,75.22,21.74,93.96-1.1,22.4-6.29,40.43-10.65,52.32.56-13.29-.47-35.89-12.44-59.39-15.02-29.5-39.36-44.85-54.46-54.12-13.93-8.56-11.57-4.48-60.17-27.57-13.27-6.3-47.73-22.96-48.74-37.65-.08-1.21-.34-5,2.02-7.73,1.63-1.89,5.14-4,14.45-2.69,19.95,2.8,39.67,17.51,46.73,16.14.46-.09,1.74-.34,2.35-1.34,1.28-2.11-1.43-5.93-2.35-7.23-14.9-20.95-63.37-28.41-63.37-28.41-30.63-4.71-40.51-.9-59-10.42-9.71-5-16.71-11.07-21.18-15.52Z"/>
+        <path fill="url(#lg5)" d="M745.1,484.44c-2.68,20.55-10.63,49.86-30.18,83.13-19.87,33.81-43.41,52.97-68.41,72.94-25.38,20.27-65.34,47.58-121.15,68.99,7.61.93,21.37,3.65,35.69,12.94,11.67,7.57,19.04,16.47,23.19,22.37,25.26-14.29,112.87-68.62,154.86-134.05,16.38-25.51,23.43-43.46,24.65-56.03,3.22-33.17-11.47-57.71-18.66-70.29Z"/>
+        <path fill="url(#lg6)" d="M242.92,484.44c3.63,18.69,14.21,58.36,47.94,91.18,8.89,8.65,35.15,32.17,73.38,42.95,12.2,3.44,18.55,3.59,37.19,9.63,21.06,6.83,48.22,18.88,60.7,38.06,5.43,8.34,8.49,19.49-3.86,21.14-13.1,1.76-33.64-16.38-44.38-22.59-4.3-2.49-10.52-4.68-13.58-.76-1.29,1.65-1.47,3.92-1.24,6,1.11,9.94,9.95,17.16,18.83,21.76,46.02,23.83,107.78,7.52,148.29,44.28,5.25,4.76,9,9.33,11.4,12.53-2.42-.47-5.51-1.03-9.09-1.6-31.36-4.98-63.14-1.81-94.7-2.28-33.36-.5-61.88-7.91-91.76-22.45-17.46-8.5-103.56-53.05-131.69-151.21-5.23-18.25-11.27-48.19-7.44-86.64Z"/>
+      </svg>
+      <div>
+        <div class="brand-name">EverCare</div>
+        <div class="brand-tagline">Home Services</div>
+      </div>
+    </a>
+    <div class="header-badge"><i class="fa-solid fa-lock"></i> Private Form</div>
+  </div>
+
+  <div class="header-inner">
+    <div class="header-eyebrow">Cleaning Service Request</div>
+    <div class="header-greeting" id="headerGreeting"></div>
+    <h1 class="header-h1">A clean home,<br/><em>a peaceful mind.</em></h1>
+    <p class="header-sub">Fill out this form and we'll prepare a personalized quote just for you — no obligation, no pressure. We'll be in touch within the hour.</p>
+    <div class="header-trust">
+      <div class="ht-item"><i class="fa-solid fa-clock"></i> Response within 1 hour</div>
+      <div class="ht-div"></div>
+      <div class="ht-item"><i class="fa-solid fa-shield-check"></i> No commitment</div>
+      <div class="ht-div"></div>
+      <div class="ht-item"><i class="fa-solid fa-lock"></i> Private & secure</div>
+      <div class="ht-div"></div>
+      <div class="ht-item"><i class="fa-solid fa-clock-rotate-left"></i> ~4 min</div>
+    </div>
+  </div><!-- /.header-inner -->
+  </div><!-- /.header-wrap -->
+</header>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="step-item active" id="si-1"><div class="step-dot">1</div><div class="step-lbl">Contact</div></div>
+    <div class="step-item" id="si-2"><div class="step-dot">2</div><div class="step-lbl">Service</div></div>
+    <div class="step-item" id="si-3"><div class="step-dot">3</div><div class="step-lbl">Property</div></div>
+    <div class="step-item" id="si-4"><div class="step-dot">4</div><div class="step-lbl">Details</div></div>
+    <div class="step-item" id="si-5"><div class="step-dot">5</div><div class="step-lbl">Review</div></div>
+  </div>
+</div>
+
+<main>
+
+  <!-- ══ STEP 1: CONTACT ══ -->
+  <div class="form-section active" data-s="1">
+    <div class="sec-eyebrow">Step 1 of 5</div>
+    <h2 class="sec-heading">Your contact information</h2>
+    <p class="sec-desc">We'll use this to send your quote and confirm everything with you directly.</p>
+    <div class="sec-line"></div>
+
+    <div class="card">
+      <div class="card-title"><i class="fa-regular fa-user"></i> About You</div>
+      <div class="field field-row">
+        <div class="field">
+          <label>First Name <span class="req">*</span></label>
+          <input type="text" id="fName" placeholder="Your first name" autocomplete="given-name" />
+          <div class="ferr" id="e-fName"><i class="fa-solid fa-circle-exclamation"></i> Required</div>
+        </div>
+        <div class="field">
+          <label>Last Name <span class="req">*</span></label>
+          <input type="text" id="lName" placeholder="Your last name" autocomplete="family-name" />
+          <div class="ferr" id="e-lName"><i class="fa-solid fa-circle-exclamation"></i> Required</div>
+        </div>
+      </div>
+      <div class="field field-row">
+        <div class="field">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" id="email" placeholder="your@email.com" autocomplete="email" />
+          <div class="ferr" id="e-email"><i class="fa-solid fa-circle-exclamation"></i> Please enter a valid email</div>
+        </div>
+        <div class="field">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" id="phone" placeholder="(508) 000-0000" autocomplete="tel" inputmode="tel" maxlength="15" />
+          <div class="ferr" id="e-phone"><i class="fa-solid fa-circle-exclamation"></i> Please enter a valid phone number</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Best way to reach you</label>
+        <div class="opt-group" id="contactPref">
+          <div class="opt-btn selected" data-v="Phone Call">Phone Call</div>
+          <div class="opt-btn" data-v="Text Message">Text Message</div>
+          <div class="opt-btn" data-v="Email">Email</div>
+          <div class="opt-btn" data-v="WhatsApp">WhatsApp</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="fa-regular fa-location-dot"></i> Where We're Coming To</div>
+      <div class="field">
+        <label>Street Address <span class="req">*</span></label>
+        <input type="text" id="addr" placeholder="123 Main Street, Apt 2" autocomplete="street-address" />
+        <div class="ferr" id="e-addr"><i class="fa-solid fa-circle-exclamation"></i> Required</div>
+      </div>
+      <div class="field field-row three">
+        <div class="field">
+          <label>City <span class="req">*</span></label>
+          <input type="text" id="city" placeholder="Worcester" autocomplete="address-level2" />
+          <div class="ferr" id="e-city"><i class="fa-solid fa-circle-exclamation"></i> Required</div>
+        </div>
+        <div class="field">
+          <label>State</label>
+          <input type="text" id="state" placeholder="MA" value="MA" autocomplete="address-level1" />
+        </div>
+        <div class="field">
+          <label>ZIP Code</label>
+          <input type="text" id="zip" placeholder="01601" inputmode="numeric" autocomplete="postal-code" maxlength="5" />
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <div></div>
+      <button class="btn-next" onclick="goNext(1)">Continue <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <!-- ══ STEP 2: SERVICE ══ -->
+  <div class="form-section" data-s="2">
+    <div class="sec-eyebrow">Step 2 of 5</div>
+    <h2 class="sec-heading">What can we help with?</h2>
+    <p class="sec-desc">Select all services you're interested in. You can choose more than one.</p>
+    <div class="sec-line"></div>
+
+    <div class="card">
+      <div class="card-title"><i class="fa-regular fa-sparkles"></i> Services</div>
+      <div class="service-grid" id="svcGrid">
+        <div class="svc-card" data-v="Residential Cleaning">
+          <div class="svc-check"><i class="fa-solid fa-check"></i></div>
+          <div class="svc-icon"><i class="fa-solid fa-house"></i></div>
+          <div class="svc-name">Residential Cleaning</div>
+          <div class="svc-desc">Regular upkeep for your home — living areas, bedrooms, bathrooms & more.</div>
+        </div>
+        <div class="svc-card" data-v="Deep Cleaning">
+          <div class="svc-check"><i class="fa-solid fa-check"></i></div>
+          <div class="svc-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div>
+          <div class="svc-name">Deep Cleaning</div>
+          <div class="svc-desc">Top-to-bottom thorough clean, including hard-to-reach areas and built-up grime.</div>
+        </div>
+        <div class="svc-card" data-v="Commercial Cleaning">
+          <div class="svc-check"><i class="fa-solid fa-check"></i></div>
+          <div class="svc-icon"><i class="fa-solid fa-building"></i></div>
+          <div class="svc-name">Commercial Cleaning</div>
+          <div class="svc-desc">Office spaces, retail stores, and other commercial properties.</div>
+        </div>
+        <div class="svc-card" data-v="Move-In / Move-Out">
+          <div class="svc-check"><i class="fa-solid fa-check"></i></div>
+          <div class="svc-icon"><i class="fa-solid fa-box-open"></i></div>
+          <div class="svc-name">Move-In / Move-Out</div>
+          <div class="svc-desc">Complete cleaning for a fresh start — whether moving in or leaving a property.</div>
+        </div>
+        <div class="svc-card" data-v="Airbnb Turnover">
+          <div class="svc-check"><i class="fa-solid fa-check"></i></div>
+          <div class="svc-icon"><i class="fa-solid fa-door-open"></i></div>
+          <div class="svc-name">Airbnb Turnover</div>
+          <div class="svc-desc">Fast, thorough turnovers between guests to keep your listing top-rated.</div>
+        </div>
+        <div class="svc-card" data-v="Post-Construction">
+          <div class="svc-check"><i class="fa-solid fa-check"></i></div>
+          <div class="svc-icon"><i class="fa-solid fa-helmet-safety"></i></div>
+          <div class="svc-name">Post-Construction</div>
+          <div class="svc-desc">Dust, debris, and residue removal after renovation or construction work.</div>
+        </div>
+        <div class="svc-card other-card" data-v="Other">
+          <div class="svc-check"><i class="fa-solid fa-check"></i></div>
+          <div class="svc-icon"><i class="fa-solid fa-ellipsis"></i></div>
+          <div class="svc-name">Something else?</div>
+          <div class="svc-desc">Don't see what you need? Tell us and we'll find a way to help.</div>
+          <div class="other-input-wrap">
+            <input type="text" id="otherService" placeholder="Describe what you're looking for..." onclick="event.stopPropagation()" />
+          </div>
+        </div>
+      </div>
+      <div class="ferr" id="e-svc" style="margin-top:12px"><i class="fa-solid fa-circle-exclamation"></i> Please select at least one service</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="fa-regular fa-calendar-check"></i> How Often?</div>
+      <div class="field">
+        <label>Service frequency <span class="req">*</span></label>
+        <div class="opt-group" id="freq">
+          <div class="opt-btn" data-v="One-Time">One-Time</div>
+          <div class="opt-btn" data-v="Weekly">Weekly</div>
+          <div class="opt-btn" data-v="Bi-Weekly">Bi-Weekly</div>
+          <div class="opt-btn" data-v="Monthly">Monthly</div>
+          <div class="opt-btn" data-v="As Needed">As Needed</div>
+        </div>
+        <div class="ferr" id="e-freq"><i class="fa-solid fa-circle-exclamation"></i> Please select a frequency</div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="goPrev(2)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+      <button class="btn-next" onclick="goNext(2)">Continue <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <!-- ══ STEP 3: PROPERTY ══ -->
+  <div class="form-section" data-s="3">
+    <div class="sec-eyebrow">Step 3 of 5</div>
+    <h2 class="sec-heading">About your property</h2>
+    <p class="sec-desc">This helps us understand the scope and give you the most accurate quote possible.</p>
+    <div class="sec-line"></div>
+
+    <div class="card">
+      <div class="card-title"><i class="fa-regular fa-house"></i> Property Details</div>
+      <div class="field">
+        <label>Property Type <span class="req">*</span></label>
+        <div class="opt-group" id="propType">
+          <div class="opt-btn" data-v="House">House</div>
+          <div class="opt-btn" data-v="Apartment">Apartment</div>
+          <div class="opt-btn" data-v="Condo">Condo</div>
+          <div class="opt-btn" data-v="Townhouse">Townhouse</div>
+          <div class="opt-btn" data-v="Commercial Space">Commercial Space</div>
+          <div class="opt-btn" data-v="Other">Other</div>
+        </div>
+        <div class="ferr" id="e-propType"><i class="fa-solid fa-circle-exclamation"></i> Please select a property type</div>
+      </div>
+      <div class="field field-row three">
+        <div class="field">
+          <label>Approx. Sq Ft <span class="hint">(optional)</span></label>
+          <input type="number" id="sqft" placeholder="e.g. 1200" min="0" />
+        </div>
+        <div class="field">
+          <label>Floors / Levels</label>
+          <select id="floors">
+            <option value="">Select</option>
+            <option>1</option><option>2</option><option>3+</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Year Built <span class="hint">(approx)</span></label>
+          <input type="number" id="yearBuilt" placeholder="e.g. 1998" min="1800" max="2026" />
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="fa-regular fa-table-cells"></i> Rooms & Areas</div>
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:14px;">Select all that apply and tell us how many of each.</p>
+      <div class="room-grid" id="roomGrid">
+        <div class="room-item" data-room="Bedrooms"><div class="room-top"><span class="room-icon">🛏️</span><span class="room-name">Bedrooms</span></div><div class="room-count"><label>How many?</label><input type="number" class="rqty" min="1" max="20" value="1" /></div></div>
+        <div class="room-item" data-room="Bathrooms"><div class="room-top"><span class="room-icon">🚿</span><span class="room-name">Bathrooms</span></div><div class="room-count"><label>How many?</label><input type="number" class="rqty" min="1" max="10" value="1" /></div></div>
+        <div class="room-item" data-room="Kitchen"><div class="room-top"><span class="room-icon">🍳</span><span class="room-name">Kitchen</span></div><div class="room-count"><label>How many?</label><input type="number" class="rqty" min="1" max="5" value="1" /></div></div>
+        <div class="room-item" data-room="Living Room"><div class="room-top"><span class="room-icon">🛋️</span><span class="room-name">Living Room</span></div><div class="room-count"><label>How many?</label><input type="number" class="rqty" min="1" max="5" value="1" /></div></div>
+        <div class="room-item" data-room="Dining Room"><div class="room-top"><span class="room-icon">🪑</span><span class="room-name">Dining Room</span></div><div class="room-count"><label>How many?</label><input type="number" class="rqty" min="1" max="5" value="1" /></div></div>
+        <div class="room-item" data-room="Home Office"><div class="room-top"><span class="room-icon">💻</span><span class="room-name">Home Office</span></div><div class="room-count"><label>How many?</label><input type="number" class="rqty" min="1" max="5" value="1" /></div></div>
+        <div class="room-item" data-room="Laundry Room"><div class="room-top"><span class="room-icon">🫧</span><span class="room-name">Laundry Room</span></div><div class="room-count"><label>How many?</label><input type="number" class="rqty" min="1" max="3" value="1" /></div></div>
+        <div class="room-item" data-room="Basement"><div class="room-top"><span class="room-icon">🏚️</span><span class="room-name">Basement</span></div><div class="room-count"><label>How many?</label><input type="number" class="rqty" min="1" max="3" value="1" /></div></div>
+        <div class="room-item" data-room="Garage"><div class="room-top"><span class="room-icon">🚗</span><span class="room-name">Garage</span></div><div class="room-count"><label>How many?</label><input type="number" class="rqty" min="1" max="5" value="1" /></div></div>
+        <div class="room-item" data-room="Patio / Outdoor"><div class="room-top"><span class="room-icon">🌿</span><span class="room-name">Patio / Outdoor</span></div><div class="room-count"><label>How many?</label><input type="number" class="rqty" min="1" max="5" value="1" /></div></div>
+      </div>
+      <div class="ferr" id="e-rooms" style="margin-top:12px"><i class="fa-solid fa-circle-exclamation"></i> Please select at least one room</div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="goPrev(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+      <button class="btn-next" onclick="goNext(3)">Continue <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <!-- ══ STEP 4: DETAILS ══ -->
+  <div class="form-section" data-s="4">
+    <div class="sec-eyebrow">Step 4 of 5</div>
+    <h2 class="sec-heading">A few more details</h2>
+    <p class="sec-desc">The more you share, the more accurate and tailored your quote will be.</p>
+    <div class="sec-line"></div>
+
+    <div class="card">
+      <div class="card-title"><i class="fa-regular fa-star"></i> Areas Needing Extra Attention</div>
+      <div class="field">
+        <label>Select all that apply <span class="hint">(optional)</span></label>
+        <div class="tag-wrap" id="attnTags">
+          <div class="tag" data-v="Inside Oven">Inside Oven</div>
+          <div class="tag" data-v="Inside Refrigerator">Inside Refrigerator</div>
+          <div class="tag" data-v="Inside Cabinets">Inside Cabinets</div>
+          <div class="tag" data-v="Windows (inside)">Windows (inside)</div>
+          <div class="tag" data-v="Baseboards">Baseboards</div>
+          <div class="tag" data-v="Blinds & Shutters">Blinds & Shutters</div>
+          <div class="tag" data-v="Walls & Scuffs">Walls & Scuffs</div>
+          <div class="tag" data-v="Ceiling Fans">Ceiling Fans</div>
+          <div class="tag" data-v="Light Fixtures">Light Fixtures</div>
+          <div class="tag" data-v="Tile Grout">Tile Grout</div>
+          <div class="tag" data-v="Carpet / Rugs">Carpet / Rugs</div>
+          <div class="tag" data-v="Hardwood Floors">Hardwood Floors</div>
+          <div class="tag" data-v="Garage Floor">Garage Floor</div>
+          <div class="tag" data-v="Patio / Deck">Patio / Deck</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="fa-regular fa-circle-info"></i> Home & Access</div>
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <div class="toggle-lbl">Pets at home?</div>
+          <div class="toggle-sub">Helps us choose the right products and prepare for fur and dander.</div>
+        </div>
+        <label class="toggle"><input type="checkbox" id="hasPets" onchange="togCond('hasPets','petsCond')" /><span class="toggle-slider"></span></label>
+      </div>
+      <div class="conditional" id="petsCond">
+        <label>Tell us about your pets <span class="hint">(type & quantity)</span></label>
+        <input type="text" id="petsInfo" placeholder="e.g. 1 golden retriever, 2 cats" />
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <div class="toggle-lbl">Someone will be home during service</div>
+          <div class="toggle-sub">Lets us coordinate arrival and access.</div>
+        </div>
+        <label class="toggle"><input type="checkbox" id="homePresent" /><span class="toggle-slider"></span></label>
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <div class="toggle-lbl">Special access needed?</div>
+          <div class="toggle-sub">Gate code, lockbox, building intercom, etc.</div>
+        </div>
+        <label class="toggle"><input type="checkbox" id="hasAccess" onchange="togCond('hasAccess','accessCond')" /><span class="toggle-slider"></span></label>
+      </div>
+      <div class="conditional" id="accessCond">
+        <label>Access instructions</label>
+        <input type="text" id="accessInfo" placeholder="e.g. Gate code #1234, key in lockbox on front door" />
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <div class="toggle-lbl">Do you have cleaning supplies at home?</div>
+          <div class="toggle-sub">If not, we bring everything at no extra charge.</div>
+        </div>
+        <label class="toggle"><input type="checkbox" id="hasSupplies" /><span class="toggle-slider"></span></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="fa-regular fa-calendar"></i> Scheduling & Notes</div>
+      <div class="field field-row">
+        <div class="field">
+          <label>Preferred Date <span class="hint">(optional)</span></label>
+          <input type="date" id="prefDate" />
+        </div>
+        <div class="field">
+          <label>Preferred Time Window</label>
+          <select id="prefTime">
+            <option value="">Select a window</option>
+            <option>Morning (8am – 12pm)</option>
+            <option>Afternoon (12pm – 4pm)</option>
+            <option>Evening (4pm – 7pm)</option>
+            <option>Flexible</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>How did you hear about EverCare?</label>
+        <select id="referral">
+          <option value="">Select...</option>
+          <option>Google Search</option>
+          <option>Google Maps</option>
+          <option>Facebook</option>
+          <option>Instagram</option>
+          <option>Friend / Family Referral</option>
+          <option>Nextdoor</option>
+          <option>Flyer / Door Hanger</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Additional notes or special requests <span class="hint">(optional)</span></label>
+        <textarea id="notes" placeholder="Any specific instructions, product allergies, areas to avoid, or anything else we should know..."></textarea>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="goPrev(4)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+      <button class="btn-next" onclick="goNext(4)">Review <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <!-- ══ STEP 5: REVIEW ══ -->
+  <div class="form-section" data-s="5">
+    <div class="sec-eyebrow">Step 5 of 5</div>
+    <h2 class="sec-heading">Review & submit</h2>
+    <p class="sec-desc">Everything look right? We'll be in touch within 1 hour with your personalized quote.</p>
+    <div class="sec-line"></div>
+
+    <div class="review-block"><div class="rb-title"><i class="fa-regular fa-user"></i> Contact</div><div id="rv-contact"></div></div>
+    <div class="review-block"><div class="rb-title"><i class="fa-regular fa-sparkles"></i> Service</div><div id="rv-service"></div></div>
+    <div class="review-block"><div class="rb-title"><i class="fa-regular fa-house"></i> Property</div><div id="rv-property"></div></div>
+    <div class="review-block"><div class="rb-title"><i class="fa-regular fa-calendar"></i> Details & Scheduling</div><div id="rv-details"></div></div>
+
+    <!-- HIDDEN FORMSPREE FORM -->
+    <form id="hForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="display:none">
+      <input type="hidden" name="_subject" value="⚡ New Cleaning Request — EverCare" />
+      <input type="hidden" name="_replyto" id="hf-email" />
+      <input type="hidden" id="hf-name" name="Full Name" />
+      <input type="hidden" id="hf-phone" name="Phone" />
+      <input type="hidden" id="hf-pref" name="Preferred Contact" />
+      <input type="hidden" id="hf-addr" name="Service Address" />
+      <input type="hidden" id="hf-svcs" name="Services Requested" />
+      <input type="hidden" id="hf-freq" name="Frequency" />
+      <input type="hidden" id="hf-proptype" name="Property Type" />
+      <input type="hidden" id="hf-sqft" name="Square Footage" />
+      <input type="hidden" id="hf-floors" name="Floors" />
+      <input type="hidden" id="hf-year" name="Year Built" />
+      <input type="hidden" id="hf-rooms" name="Rooms" />
+      <input type="hidden" id="hf-attn" name="Extra Attention Areas" />
+      <input type="hidden" id="hf-pets" name="Pets" />
+      <input type="hidden" id="hf-home" name="Someone Home During Service" />
+      <input type="hidden" id="hf-access" name="Access Instructions" />
+      <input type="hidden" id="hf-supplies" name="Has Cleaning Supplies" />
+      <input type="hidden" id="hf-date" name="Preferred Date" />
+      <input type="hidden" id="hf-time" name="Preferred Time" />
+      <input type="hidden" id="hf-ref" name="Referral Source" />
+      <input type="hidden" id="hf-notes" name="Notes" />
+      <!-- Honeypot -->
+      <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" />
+    </form>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="goPrev(5)"><i class="fa-solid fa-arrow-left"></i> Edit</button>
+      <button class="btn-submit" id="submitBtn" onclick="doSubmit()">
+        <i class="fa-solid fa-paper-plane"></i> Request My Free Quote
+      </button>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2025 EverCare Home Services · Worcester, MA · <a href="https://evercarehomeservice.com" target="_blank">evercarehomeservice.com</a></p>
+  <div class="fl"><i class="fa-solid fa-lock"></i> This page is private and by invitation only</div>
+</footer>
+
+<script>
+  // ── PERSONALIZATION ──
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name');
+    const greet = document.getElementById('headerGreeting');
+    if (name && greet) {
+      // Capitalize each word
+      const clean = name.trim().replace(/\b\w/g, c => c.toUpperCase());
+      greet.innerHTML = 'Hi, <strong>' + clean + '!</strong> We\'re glad you\'re here.';
+      // Split into first and last name
+      const parts = clean.split(' ');
+      const firstName = parts[0] || '';
+      const lastName = parts.slice(1).join(' ') || '';
+      const fNameInput = document.getElementById('fName');
+      const lNameInput = document.getElementById('lName');
+      if (fNameInput) fNameInput.value = firstName;
+      if (lNameInput && lastName) lNameInput.value = lastName;
+    }
+  })();
+
+  // ── PHONE FORMAT ──
+  document.getElementById('phone').addEventListener('input', function(e) {
+    let v = e.target.value.replace(/\D/g, '').slice(0, 10);
+    if (v.length >= 7) {
+      v = '(' + v.slice(0,3) + ') ' + v.slice(3,6) + '-' + v.slice(6);
+    } else if (v.length >= 4) {
+      v = '(' + v.slice(0,3) + ') ' + v.slice(3);
+    } else if (v.length > 0) {
+      v = '(' + v;
+    }
+    e.target.value = v;
+  });
+
+  let cur = 1;
+
+  function goNext(from) { if (!validate(from)) return; cur = from + 1; show(cur); if (cur === 5) buildReview(); }
+  function goPrev(from) { cur = from - 1; show(cur); }
+
+  function show(n) {
+    document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+    document.querySelector('[data-s="' + n + '"]').classList.add('active');
+    for (let i = 1; i <= 5; i++) {
+      const el = document.getElementById('si-' + i);
+      el.classList.remove('active','done');
+      if (i < n) el.classList.add('done');
+      if (i === n) el.classList.add('active');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Single-select groups
+  ['#contactPref','#freq','#propType'].forEach(sel => {
+    document.querySelectorAll(sel + ' .opt-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        this.closest('.opt-group').querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+  });
+
+  // Service cards
+  document.querySelectorAll('#svcGrid .svc-card').forEach(c => {
+    c.addEventListener('click', function(e) {
+      if (e.target.tagName === 'INPUT') return;
+      this.classList.toggle('selected');
+    });
+  });
+
+  // Room items
+  document.querySelectorAll('.room-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+      if (e.target.tagName === 'INPUT') return;
+      this.classList.toggle('selected');
+    });
+  });
+
+  // Tags
+  document.querySelectorAll('.tag').forEach(t => t.addEventListener('click', function() { this.classList.toggle('selected'); }));
+
+  function togCond(chkId, divId) {
+    document.getElementById(divId).classList.toggle('show', document.getElementById(chkId).checked);
+  }
+
+  function validate(n) {
+    let ok = true;
+    if (n === 1) {
+      ok = chk('fName','e-fName') & ok;
+      ok = chk('lName','e-lName') & ok;
+      ok = chkEmail('email','e-email') & ok;
+      ok = chkPhone('phone','e-phone') & ok;
+      ok = chk('addr','e-addr') & ok;
+      ok = chk('city','e-city') & ok;
+    }
+    if (n === 2) {
+      const s = document.querySelectorAll('#svcGrid .svc-card.selected').length > 0;
+      document.getElementById('e-svc').classList.toggle('show', !s);
+      if (!s) ok = false;
+      const f = !!document.querySelector('#freq .opt-btn.selected');
+      document.getElementById('e-freq').classList.toggle('show', !f);
+      if (!f) ok = false;
+    }
+    if (n === 3) {
+      const pt = !!document.querySelector('#propType .opt-btn.selected');
+      document.getElementById('e-propType').classList.toggle('show', !pt);
+      if (!pt) ok = false;
+      const rm = document.querySelectorAll('.room-item.selected').length > 0;
+      document.getElementById('e-rooms').classList.toggle('show', !rm);
+      if (!rm) ok = false;
+    }
+    return !!ok;
+  }
+
+  function chk(id, eid) {
+    const v = document.getElementById(id).value.trim();
+    document.getElementById(id).classList.toggle('err', !v);
+    document.getElementById(eid).classList.toggle('show', !v);
+    return !!v;
+  }
+  function chkPhone(id, eid) {
+    const v = document.getElementById(id).value.trim().replace(/\D/g,'');
+    const ok = v.length >= 10;
+    document.getElementById(id).classList.toggle('err', !ok);
+    document.getElementById(eid).classList.toggle('show', !ok);
+    return ok;
+  }
+  function chkEmail(id, eid) {
+    const v = document.getElementById(id).value.trim();
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    document.getElementById(id).classList.toggle('err', !ok);
+    document.getElementById(eid).classList.toggle('show', !ok);
+    return ok;
+  }
+
+  const g = id => document.getElementById(id)?.value?.trim() || '';
+  const sel1 = s => { const e = document.querySelector(s + '.selected'); return e ? (e.dataset.v || e.textContent.trim()) : '—'; };
+  const selM = s => { const els = [...document.querySelectorAll(s + '.selected')]; return els.length ? els.map(e => e.dataset.v || e.textContent.trim()).join(', ') : '—'; };
+
+  function buildReview() {
+    const rooms = [...document.querySelectorAll('.room-item.selected')].map(r =>
+      r.dataset.room + ' ×' + (r.querySelector('.rqty')?.value || 1)
+    ).join(', ') || '—';
+
+    // Services — include "other" detail if filled
+    let svcs = [...document.querySelectorAll('#svcGrid .svc-card.selected')].map(e => e.dataset.v).join(', ') || '—';
+    const otherVal = g('otherService');
+    if (otherVal && svcs.includes('Other')) svcs = svcs.replace('Other', 'Other: ' + otherVal);
+
+    document.getElementById('rv-contact').innerHTML =
+      rr('Name', g('fName') + ' ' + g('lName')) +
+      rr('Email', g('email')) +
+      rr('Phone', g('phone')) +
+      rr('Contact via', sel1('#contactPref .opt-btn')) +
+      rr('Address', [g('addr'), g('city'), g('state'), g('zip')].filter(Boolean).join(', '));
+
+    document.getElementById('rv-service').innerHTML =
+      rr('Services', svcs) +
+      rr('Frequency', sel1('#freq .opt-btn'));
+
+    document.getElementById('rv-property').innerHTML =
+      rr('Type', sel1('#propType .opt-btn')) +
+      rr('Sq Ft', g('sqft') || '—') +
+      rr('Floors', document.getElementById('floors').value || '—') +
+      rr('Year Built', g('yearBuilt') || '—') +
+      rr('Rooms', rooms);
+
+    document.getElementById('rv-details').innerHTML =
+      rr('Extra Attention', selM('#attnTags .tag') || '—') +
+      rr('Pets', document.getElementById('hasPets').checked ? 'Yes — ' + (g('petsInfo') || 'not specified') : 'No') +
+      rr('Someone Home', document.getElementById('homePresent').checked ? 'Yes' : 'No') +
+      rr('Has Supplies', document.getElementById('hasSupplies').checked ? 'Yes' : 'No') +
+      rr('Special Access', document.getElementById('hasAccess').checked ? (g('accessInfo') || 'Yes') : 'No') +
+      rr('Preferred Date', g('prefDate') || '—') +
+      rr('Preferred Time', document.getElementById('prefTime').value || '—') +
+      rr('Heard About Us', document.getElementById('referral').value || '—') +
+      rr('Notes', g('notes') || '—');
+  }
+
+  function rr(k, v) {
+    return '<div class="rrow"><span class="rkey">' + k + '</span><span class="rval">' + v + '</span></div>';
+  }
+
+  function doSubmit() {
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Sending...';
+
+    const rooms = [...document.querySelectorAll('.room-item.selected')].map(r =>
+      r.dataset.room + ' x' + (r.querySelector('.rqty')?.value || 1)
+    ).join(', ');
+
+    let svcs = [...document.querySelectorAll('#svcGrid .svc-card.selected')].map(e => e.dataset.v).join(', ');
+    const otherVal = g('otherService');
+    if (otherVal && svcs.includes('Other')) svcs = svcs.replace('Other', 'Other: ' + otherVal);
+
+    document.getElementById('hf-name').value = g('fName') + ' ' + g('lName');
+    document.getElementById('hf-email').value = g('email');
+    document.getElementById('hf-phone').value = g('phone');
+    document.getElementById('hf-pref').value = sel1('#contactPref .opt-btn');
+    document.getElementById('hf-addr').value = [g('addr'), g('city'), g('state'), g('zip')].filter(Boolean).join(', ');
+    document.getElementById('hf-svcs').value = svcs;
+    document.getElementById('hf-freq').value = sel1('#freq .opt-btn');
+    document.getElementById('hf-proptype').value = sel1('#propType .opt-btn');
+    document.getElementById('hf-sqft').value = g('sqft');
+    document.getElementById('hf-floors').value = document.getElementById('floors').value;
+    document.getElementById('hf-year').value = g('yearBuilt');
+    document.getElementById('hf-rooms').value = rooms;
+    document.getElementById('hf-attn').value = selM('#attnTags .tag');
+    document.getElementById('hf-pets').value = document.getElementById('hasPets').checked ? 'Yes — ' + g('petsInfo') : 'No';
+    document.getElementById('hf-home').value = document.getElementById('homePresent').checked ? 'Yes' : 'No';
+    document.getElementById('hf-access').value = document.getElementById('hasAccess').checked ? g('accessInfo') : 'No';
+    document.getElementById('hf-supplies').value = document.getElementById('hasSupplies').checked ? 'Yes' : 'No';
+    document.getElementById('hf-date').value = g('prefDate');
+    document.getElementById('hf-time').value = document.getElementById('prefTime').value;
+    document.getElementById('hf-ref').value = document.getElementById('referral').value;
+    document.getElementById('hf-notes').value = g('notes');
+
+    const name = g('fName');
+
+    fetch(document.getElementById('hForm').action, {
+      method: 'POST',
+      body: new FormData(document.getElementById('hForm')),
+      headers: { 'Accept': 'application/json' }
+    }).then(res => {
+      if (res.ok) {
+        document.querySelector('main').innerHTML = `
+          <div class="success-wrap">
+            <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+            <div class="success-eyebrow">Request Received</div>
+            <h2 class="success-h2">${name ? 'Thank you, ' + name + '!' : 'Thank you!'}<br/><em>We're on it.</em></h2>
+            <div class="success-line"></div>
+            <p class="success-desc">
+              Your cleaning request has been received. We'll review everything and reach out with your personalized quote within <strong>1 hour.</strong>
+            </p>
+            <div class="success-steps">
+              <div class="ss-item">
+                <div class="ss-num">1</div>
+                <div class="ss-lbl">We review<br/>your request</div>
+              </div>
+              <div class="ss-item">
+                <div class="ss-num">2</div>
+                <div class="ss-lbl">We contact<br/>you within 1hr</div>
+              </div>
+              <div class="ss-item">
+                <div class="ss-num">3</div>
+                <div class="ss-lbl">You receive<br/>your quote</div>
+              </div>
+            </div>
+            <p class="success-email">Questions? Reach us at <strong>info@evercarehomeservice.com</strong></p>
+            <div style="margin-top:28px">
+              <a href="https://evercarehomeservice.com" class="btn-back-site"><i class="fa-solid fa-arrow-left"></i> Back to EverCare</a>
+            </div>
+          </div>`;
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Request My Free Quote';
+        alert('Something went wrong. Please email us at info@evercarehomeservice.com');
+      }
+    }).catch(() => {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Request My Free Quote';
+      alert('Connection error. Please email us at info@evercarehomeservice.com');
+    });
+  }
+</script>
+</body>
+</html>
