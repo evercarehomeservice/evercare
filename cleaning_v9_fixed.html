@@ -191,6 +191,8 @@
         #header.scrolled #hamburger { color: var(--charcoal); }
         #mobile-menu { display:block; max-height:0; overflow:hidden; opacity:0; position:absolute; top:100%; left:0; right:0; background: var(--cream); padding: 0 24px; box-shadow: 0 8px 32px rgba(28,36,32,.1); border-top: 2px solid var(--blue-primary); transition: max-height .35s ease, opacity .25s ease, padding .35s ease; }
         #mobile-menu.open { max-height:580px; opacity:1; padding:16px 24px 28px; }
+        #mobile-menu-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:98; }
+        #mobile-menu-overlay.active { display:block; }
         #mobile-menu a { display:block; padding:13px 0; font-weight:500; color:var(--charcoal); border-bottom:1px solid rgba(28,36,32,.06); font-size:.95rem; letter-spacing:.03em; text-transform:uppercase; }
         #mobile-menu .btn-nav { display:block; margin-top:16px; text-align:center; padding:15px 24px; font-size:1rem; border-bottom:none; text-transform:none; border-radius:var(--radius); }
         @media(max-width:900px){ .nav-links{display:none} #hamburger{display:block} }
@@ -222,7 +224,7 @@
         .hero-right-photo img { width:100%; max-width:420px; border-radius:var(--radius-lg) var(--radius-lg) 0 0; object-fit:cover; object-position:top center; filter:drop-shadow(0 24px 48px rgba(0,0,0,.45)); }
         .hero-eyebrow { display:inline-flex; align-items:center; gap:10px; color: rgba(255,255,255,.6); font-size:.72rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; margin-bottom:20px; }
         .hero-eyebrow::before { content:''; display:inline-block; width:20px; height:1.5px; background:var(--yellow-accent); border-radius:2px; }
-        #hero h1 { font-family: var(--body); font-size: clamp(2.8rem,5.2vw,4.6rem); font-weight: 400; color: #fff; line-height: 1.1; margin-bottom: 20px; }
+        #hero h1 { font-family: var(--body); font-size: clamp(2.8rem,5.2vw,4.6rem); font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 20px; }
         @media(max-width:900px){ #hero h1{font-size:clamp(2.4rem,7.5vw,3.2rem);} }
         #hero h1 em { font-style:italic; font-weight:400; display:block; color: var(--yellow-accent); }
         .hero-sub { color: rgba(255,255,255,.85); font-size: clamp(.9rem,1.3vw,1.02rem); line-height: 1.8; margin-bottom: 28px; font-weight: 500; max-width: 460px; }
@@ -443,6 +445,11 @@
         @media(max-width:900px){ .why-photo-mobile-label { display:block !important; font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--blue-primary); margin-bottom:12px; } }
         #widget-panel { max-width: calc(100vw - 32px); overscroll-behavior: contain; }
         @media(max-width:520px){ .cta-card { flex: 1 1 100% !important; max-width: 100% !important; } }
+        #sticky-mobile-cta { display:none; position:fixed; bottom:0; left:0; right:0; z-index:200; background:var(--charcoal); padding:10px 16px 12px; border-top:1px solid rgba(255,255,255,.08); flex-direction:row; gap:8px; align-items:center; justify-content:center; }
+        #sticky-mobile-cta.visible { display:flex; }
+        #sticky-mobile-cta .smc-clean { flex:1; display:flex; align-items:center; justify-content:center; gap:7px; background-image:linear-gradient(135deg,var(--blue-primary) 0%,var(--teal-accent) 100%); color:#fff; border:none; border-radius:var(--radius); padding:12px 8px; font-size:.82rem; font-weight:600; cursor:pointer; font-family:var(--body); }
+        #sticky-mobile-cta .smc-whatsapp { flex:1; display:flex; align-items:center; justify-content:center; gap:7px; background:#25D366; color:#fff; border:none; border-radius:var(--radius); padding:12px 8px; font-size:.82rem; font-weight:600; cursor:pointer; font-family:var(--body); }
+        #sticky-mobile-cta .smc-call { flex:1; display:flex; align-items:center; justify-content:center; gap:7px; background:var(--charcoal-mid); color:#fff; border-radius:var(--radius); padding:12px 8px; font-size:.82rem; font-weight:600; text-decoration:none; }
         #exit-modal-content { overscroll-behavior: contain; }
         @media(max-width:400px){ #care-guide-form > div[style*="flex"] { flex-direction:column !important; } #care-guide-form input[type="email"] { min-width:unset !important; width:100% !important; } }
 
@@ -1170,34 +1177,10 @@
 
                     <details style="border-bottom:1px solid rgba(13,30,46,.08);padding:20px 0;">
                         <summary style="font-family:var(--body);font-size:1rem;font-weight:600;color:var(--charcoal);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;">
-                            Do you bring your own cleaning supplies?
-                            <i class="fa-solid fa-chevron-down" aria-hidden="true" style="color:var(--blue-primary);font-size:.78rem;flex-shrink:0;transition:transform .2s;"></i>
-                        </summary>
-                        <p style="font-size:.92rem;color:var(--warm-gray);line-height:1.75;margin-top:12px;font-weight:400;">Yes. We bring professional-grade, eco-friendly supplies and all equipment. Safe for kids and pets. If you prefer we use your own products, just let us know.</p>
-                    </details>
-
-                    <details style="border-bottom:1px solid rgba(13,30,46,.08);padding:20px 0;">
-                        <summary style="font-family:var(--body);font-size:1rem;font-weight:600;color:var(--charcoal);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;">
                             What if something isn't cleaned to my standards?
                             <i class="fa-solid fa-chevron-down" aria-hidden="true" style="color:var(--blue-primary);font-size:.78rem;flex-shrink:0;transition:transform .2s;"></i>
                         </summary>
                         <p style="font-size:.92rem;color:var(--warm-gray);line-height:1.75;margin-top:12px;font-weight:400;">We come back and redo it — free of charge, no questions asked. Text Renan directly and we'll be back within 48 hours to make it right.</p>
-                    </details>
-
-                    <details style="border-bottom:1px solid rgba(13,30,46,.08);padding:20px 0;">
-                        <summary style="font-family:var(--body);font-size:1rem;font-weight:600;color:var(--charcoal);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;">
-                            Do I need to be home during the cleaning?
-                            <i class="fa-solid fa-chevron-down" aria-hidden="true" style="color:var(--blue-primary);font-size:.78rem;flex-shrink:0;transition:transform .2s;"></i>
-                        </summary>
-                        <p style="font-size:.92rem;color:var(--warm-gray);line-height:1.75;margin-top:12px;font-weight:400;">No — most of our clients aren't home. Many leave a key or use a lockbox. We're CORI background-checked and fully insured. We'll send a message when we arrive and when we're done.</p>
-                    </details>
-
-                    <details style="border-bottom:1px solid rgba(13,30,46,.08);padding:20px 0;">
-                        <summary style="font-family:var(--body);font-size:1rem;font-weight:600;color:var(--charcoal);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;">
-                            How do I cancel or reschedule?
-                            <i class="fa-solid fa-chevron-down" aria-hidden="true" style="color:var(--blue-primary);font-size:.78rem;flex-shrink:0;transition:transform .2s;"></i>
-                        </summary>
-                        <p style="font-size:.92rem;color:var(--warm-gray);line-height:1.75;margin-top:12px;font-weight:400;">Just text Renan directly. We ask for at least 24 hours' notice when possible. No cancellation fees, no contracts, no pressure.</p>
                     </details>
 
                     <details style="padding:20px 0;">
@@ -1681,7 +1664,8 @@
 
             (function() {
                 const sticky = document.getElementById('sticky-mobile-cta');
-                if (!sticky || window.innerWidth > 768) return;
+                if (!sticky) return;
+                if (window.innerWidth > 768) return;
                 let lastScroll = 0;
                 window.addEventListener('scroll', () => {
                     const current = window.scrollY;
@@ -1911,7 +1895,7 @@
                     var nameEl = document.getElementById('cm-name'); if (nameEl) { nameEl.value = ''; nameEl.style.borderColor = ''; nameEl.removeAttribute('aria-invalid'); }
                     var emailEl = document.getElementById('cm-email-input'); if (emailEl) { emailEl.value = ''; emailEl.style.borderColor = ''; emailEl.removeAttribute('aria-invalid'); }
                     var msgEl = document.getElementById('cm-message'); if (msgEl) msgEl.value = '';
-                    var svcEl = document.getElementById('cm-service'); if (svcEl) svcEl.value = 'cleaning';
+                    var svcEl = document.getElementById('cm-service'); if (svcEl) { var cleaningIdx = Array.from(svcEl.options).findIndex(o => o.value === 'cleaning' || o.text.toLowerCase().includes('cleaning')); svcEl.selectedIndex = cleaningIdx >= 0 ? cleaningIdx : 0; }
                     var nameErr = document.getElementById('cm-name-error'); if (nameErr) nameErr.style.display = 'none';
                     var emailErrSpan = document.getElementById('cm-email-error-span'); if (emailErrSpan) emailErrSpan.style.display = 'none';
                     var errEl = document.getElementById('cm-email-error'); if (errEl) errEl.style.display = 'none';
